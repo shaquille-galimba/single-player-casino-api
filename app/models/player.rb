@@ -1,6 +1,5 @@
 class Player < ApplicationRecord
   belongs_to :game
-	validates :name, uniqueness: true
 	before_update :update_highest_score_and_profit, :update_game_profit, :if => :latest_score_changed?
 
 	private
@@ -8,12 +7,12 @@ class Player < ApplicationRecord
 			if self.latest_score > self.highest_score
 				self.highest_score = self.latest_score
 			end
-			self.profit += self.latest_score
+			self.profit += (self.latest_score - 1000)
 		end
 
 		# update game profit according to player's latest earning
 		def update_game_profit
-			self.game.profit -= self.latest_score
+			self.game.profit -= (self.latest_score - 1000)
 			self.game.save
 		end
 end
