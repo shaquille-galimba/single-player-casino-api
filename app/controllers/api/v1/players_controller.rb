@@ -10,7 +10,7 @@ class Api::V1::PlayersController < ApplicationController
 
 	def create
 		# @player = Player.where(player_params).first_or_create
-		@player = @game.players.find_or_create_by(player_params)
+		@player = @game.players.find_or_create_by(name: player_params[:name])
 		if @player
 			render json: @player
 		else
@@ -30,7 +30,7 @@ class Api::V1::PlayersController < ApplicationController
 	def update
 
 		if @player
-			@player.update(player_params[:latest_score])
+			@player.update(latest_score: player_params[:latest_score])
 			render json: @player
 		else
 			render json: { error: "No player found"}
