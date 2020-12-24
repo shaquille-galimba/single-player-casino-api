@@ -5,14 +5,14 @@ class Api::V1::PlayersController < ApplicationController
 	def index
 		@players = @game.players
 
-		render json: @players
+		render json: PlayerSerializer.new(@players)
 	end
 
 	def create
 		# @player = Player.where(player_params).first_or_create
 		@player = @game.players.find_or_create_by(name: player_params[:name])
 		if @player
-			render json: @player
+			render json: PlayerSerializer.new(@player)
 		else
 			render json: {error: "Error creating player"}
 		end
@@ -21,7 +21,7 @@ class Api::V1::PlayersController < ApplicationController
 	def show
 
 		if @player
-			render json: @player
+			render json: PlayerSerializer.new(@player)
 		else
 			render json: { error: "No player found"}
 		end
@@ -31,7 +31,7 @@ class Api::V1::PlayersController < ApplicationController
 
 		if @player
 			@player.update(latest_score: player_params[:latest_score])
-			render json: @player
+			render json: PlayerSerializer.new(@player)
 		else
 			render json: { error: "No player found"}
 		end
