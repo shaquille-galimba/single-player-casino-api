@@ -1,7 +1,7 @@
 class Player < ApplicationRecord
   belongs_to :game
-	before_update :update_highest_score_and_profit, :if => :latest_score_changed?
-	before_update :update_game_profit, :if => :latest_score_changed?
+	before_update :update_highest_score_and_profit
+	before_update :update_game_profit
 
 	private
 		def update_highest_score_and_profit
