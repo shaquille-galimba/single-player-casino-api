@@ -1,9 +1,15 @@
 class Api::V1::PlayersController < ApplicationController
 	before_action :set_player, only: [:show, :update]
-	before_action :set_game, only: [:index, :create]
+	before_action :set_game, only: [:index, :create, :highscores]
 
 	def index
 		@players = @game.players
+
+		render json: PlayerSerializer.new(@players)
+	end
+
+	def highscores
+		@players = @game.players.highscores
 
 		render json: PlayerSerializer.new(@players)
 	end

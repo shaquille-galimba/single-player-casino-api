@@ -3,6 +3,8 @@ class Player < ApplicationRecord
 	before_update :update_highest_score_and_profit
 	before_update :update_game_profit
 
+	scope :highscores, -> { order(highest_score: :desc ).limit(5) }
+
 	private
 		def update_highest_score_and_profit
 			if self.latest_score > self.highest_score

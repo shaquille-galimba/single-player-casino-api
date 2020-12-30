@@ -4,7 +4,11 @@ Rails.application.routes.draw do
 	namespace :api do
 		namespace :v1 do
 			resources :games do
-				resources :players				
+				resources :players do
+					collection do
+						get :highscores
+					end
+				end
 			end
 		end
 	end
