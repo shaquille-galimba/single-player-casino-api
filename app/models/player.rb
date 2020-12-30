@@ -10,12 +10,12 @@ class Player < ApplicationRecord
 			if self.latest_score > self.highest_score
 				self.highest_score = self.latest_score
 			end
-			self.profit += (self.latest_score - 1000)
+			self.profit += (self.latest_score)
 		end
 
 		# update game profit according to player's latest earning
 		def update_game_profit
-			self.game.profit -= (self.latest_score - 1000)
+			self.game.profit -= (self.latest_score)
 			self.game.save
 		end
 end
